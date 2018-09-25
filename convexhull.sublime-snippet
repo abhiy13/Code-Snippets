@@ -1,9 +1,0 @@
-<snippet>
-	<content><![CDATA[
-
-
-]]></content>
-	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
-	<tabTrigger>Convex Hull</tabTrigger>
-	<scope>source.cpp , source.c++ , source.c</scope>
-</snippet>
