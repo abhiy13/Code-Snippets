@@ -1,0 +1,82 @@
+<snippet>
+	<content><![CDATA[
+
+template <typename T>
+class SegTree{
+private:
+	vector < T > tree;
+	ll N , n;
+
+	T combine(T A , T B){
+		return max(A , B);
+	}
+
+	ll build(vector < T > ar , ll s , ll e , ll idx){
+		if(s==e){
+			tree[idx] = ar[s];
+			return ar[s];
+		}
+		ll mid = (s+e) >> 1;
+		ll lf = idx << 1;
+		ll rf = lf|1;
+		tree[idx] = combine(build(ar,s,mid,lf) , build(ar,mid+1,e,rf));
+		return tree[idx];
+	}
+
+	T query(ll s , ll e , ll lf , ll rf , ll idx){
+		if(rf < s or e < lf) return -inf;
+		if(lf <= s and e <= rf) return tree[idx];
+		ll mid = (s+e) >> 1;
+		ll l = idx << 1;
+		ll r =  lf|1;
+		if(lf <= mid){
+			if(rf <= mid){
+				return query(s,mid,lf,rf,l);
+			}else{
+				return combine(query(s,mid,lf,rf,l),query(mid+1,e,lf,rf,r));
+			}
+		}else{
+			return query(mid+1,e,lf,rf,r);
+		}
+	}
+
+	void update(ll s , ll e , ll i , T val , ll idx){
+		if(s > i or e < i) return;
+		if(s==e){
+			tree[idx] = val;
+			return;
+		}
+		ll mid = (s+e) >> 1;
+		ll lf = idx << 1;
+		ll rf = lf|1;
+		update(s,mid,i,val,lf);
+		update(mid+1,e,i,val,rf);
+		tree[idx] = combine(tree[lf] , tree[rf]);
+		return;
+	}
+public:
+  SegTree(vector < T > ar){
+    n = ar.size();
+    N = 4*((int) ar.size()) + 1;
+    tree.resize(N, {});
+    build(ar , 0 , n - 1 , 1);
+  }
+
+  T query(ll l ,ll r){
+    return query(0 , n - 1 , l , r , 1);
+  }
+
+  void update(ll i , T val){
+    update(0 , n - 1 , i , val , 1);
+  }
+};
+
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>segmine</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cpp, source.c++, source.c</scope>
+	<!-- Optional: Description to show in the menu -->
+	<description>Segtree Mine</description>
+</snippet>

@@ -1,0 +1,22 @@
+<snippet>
+	<content><![CDATA[
+inline ll inv(ll a) {
+  a %= MOD;
+  if (a < 0) a += MOD;
+  ll b = MOD, u = 0, v = 1;
+  while (a) {
+    int t = b / a;
+    b -= t * a; swap(a, b);
+    u -= t * v; swap(u, v);
+  }
+  assert(b == 1);
+  if (u < 0) u += MOD;
+  return u;
+}
+ 
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>modinv</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cpp , source.c++ , source.c</scope>
+</snippet>

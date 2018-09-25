@@ -1,0 +1,44 @@
+<snippet>
+	<content><![CDATA[
+#define inf 100000000000000000
+#define N 100005
+ 
+vector <pair<ll,ll>> v[N];
+vector<ll> dist(N,0);
+ 
+inline ll in(){
+	ll k; cin>>k;
+	return k;
+}
+ 
+void dijkstra(ll S){
+	ll u , vv , c , w;
+	priority_queue< pair < ll , ll > , vector< pair < ll , ll > > , greater < pair <ll , ll > > > Q;
+	Q.push({0,S});
+	dist[S] = 0;
+	while(!Q.empty()){
+		u = Q.top().second;
+		c = Q.top().first;
+		Q.pop();
+		if(dist[u] < c){
+			continue;
+		}
+		for(int i = 0 ; i < (int) v[u].size() ; i++){
+			w = v[u][i].first;
+			vv = v[u][i].second;
+			if(dist[vv] > dist[u] + w){
+				dist[vv] = dist[u] + w;
+				Q.push({dist[vv],vv});
+			}
+		}
+	}
+}
+ 
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>dijkstra</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cpp, source.c++, source.c</scope>
+	<!-- Optional: Description to show in the menu -->
+	<description>Dijkstra's (SSSP) Single Source Shortest Path Algo</description>
+</snippet>

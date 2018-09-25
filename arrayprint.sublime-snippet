@@ -1,0 +1,50 @@
+<snippet>
+	<content><![CDATA[
+
+template <class T , class U>
+ostream &operator<<(ostream &os , const pair<T,U> &p){
+	os << "{ " << p.first << " , " << p.second << " }";
+	return os;
+}
+template <class T>
+ostream &operator<<(ostream &os, const vector<T> &v) {
+  os << "[ ";
+  bool ok = true;
+  for (T x : v){
+    if(!ok){
+      cout << " , ";
+    }
+    os << x;
+    if(ok) ok = false;
+  }
+  os << "]\n";
+  return os;
+}
+template <class T>
+ostream &operator<<(ostream &os, const vector<vector<T>> &v) {
+  os << "\n[\n";
+  for (auto x : v) os << x; 
+  os << "\n]\n";
+  return os;
+}
+template <class T , class U>
+ostream &operator<<(ostream &os , const unordered_map<T , U> &v){
+	os << "[ ";
+	bool ok = true;
+	for(auto x : v){
+		if(!ok){
+			cout << " , ";
+		}
+		os << x;
+		if(ok) ok = false;
+	}
+	os << " ]\n";
+	return os;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>array print</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cpp , source.c++ , source.c</scope>
+</snippet>

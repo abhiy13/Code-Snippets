@@ -1,0 +1,92 @@
+<snippet>
+	<content><![CDATA[
+
+//Using likecs and partial rajat1603 Lazy Propagation SegTree Template 		
+
+const int MAX = 1e5 + 5;
+const int LIM = 3e5 + 5;        //equals 2 * 2^ceil(log2(n))
+int a[MAX];
+int segT[LIM];
+int lazy[LIM];
+
+int combine(int &a, int &b) {
+	return max(a, b);
+}
+
+void propagate(int l, int r, int node) {
+	if (lazy[node]) {
+		segT[node] = segT[node] + lazy[node];
+		if (l != r){
+			int lc = index<<1;
+			int rc = lc|1;
+			lazy[lc] = lazy[lc] + lazy[index];
+			lazy[rc] = lazy[rc] + lazy[index];
+		}
+		lazy[index] = 0;
+	}
+}
+
+void build(int index, int l, int r) {
+	lazy[index] = 0;
+	if (l == r) {
+		segT[index] = a[l];
+		return ;
+	}
+	int lc = index<<1;
+	int rc = lc|1;
+	int mid = (l+r)>>1;
+	build(lc, l, mid);
+	build(rc,mid+1,r);
+	segT[t] = combine(segT[lc], segT[rc]);
+}
+
+
+void update(int l, int r, int index, int ql, int qr, int x) {
+	propagate(index,l,r);
+	if (l > qr || r < ql) {
+		return;
+	}
+	if (ql <= l && qr <= r) {
+		lazy[index] += x;
+		propagate(t, i, j);
+		return;
+	}
+	int lc = index<<1;
+	int rc = lc|1;
+	int mid = (l+r)>>1;
+	update(l, mid,,lc ,ql, qr, x);
+	update(mid + 1, r, rc ,ql, qr, x);
+	segT[index] = combine(segT[lc], segT[rc]);
+}
+
+int query(int l, int r, int index, int ql, int qr) {
+	propagate(index,l,r);
+	if (i > r || j < l){
+		return 0;
+	}
+	if (ql <= l && r <= qr){
+		return segT[index];
+	}
+	int mid = (l+r)>>1;
+	int lc = index << 1;
+	int rc = lc|1;
+	if (ql <= mid) {
+		if (qr <= mid) {
+			return query(l,mid,lc,ql,qr);
+		}else{
+			int a = query(l,mid,lc,ql,qr);
+			int b = query(mid + 1,r,rc,ql, qr);
+			return combine(a, b);
+		}
+	}else {
+		return query(mid + 1, r, rc, ql, qr);
+	}
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>segtreelazy</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cpp, source.c++, source.c</scope>
+	<!-- Optional: Description to show in the menu -->
+	<description>Lazy Segment Tree</description>
+</snippet>

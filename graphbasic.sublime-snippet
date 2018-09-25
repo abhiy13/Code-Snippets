@@ -1,0 +1,44 @@
+<snippet>
+	<content><![CDATA[
+template <typename T>
+class Graph{
+	vector < vector <T> > V;
+	vector <bool> visited;
+	int N;
+public:
+	Graph(int _N) : N(_N){
+		V.resize(N+1 , vector <T>());
+		visited.resize(N+1 , false);
+	} 
+
+	void addEdge(int u , int v){
+		V[u].push_back(v);
+		V[v].push_back(u);
+	}
+
+	void display(){
+		int k = 1;
+		for(auto I : V{
+			cout << k++ << " Connected to : "
+			for(auto J : I){
+				cout << J << ' ';
+			}
+			cout << '\n';
+		}
+	}
+
+	void dfs(int u){
+		visited[u] = true;
+		for(auto I : V[u]){
+			if(!visited[I]){
+				dfs(I);
+			}
+		}
+	}
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>Graph Basic</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.python</scope>
+</snippet>

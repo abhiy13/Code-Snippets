@@ -1,0 +1,20 @@
+<snippet>
+	<content><![CDATA[
+  static int power(int n , int p){
+    n %= MOD;
+    int ans = 1;
+    while(p > 0){
+      if((p&1) != 0){
+        ans = (ans * n) % MOD;
+      }
+      n = (n * n) % MOD;
+      p >>= 1;
+    }
+    return ans;
+  }
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>modpow</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.java</scope>
+</snippet>

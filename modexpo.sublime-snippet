@@ -1,0 +1,21 @@
+<snippet>
+	<content><![CDATA[
+ll power(ll n , ll p){
+	ll ans = 1;
+	n %= MOD;
+	for(;p;p>>=1){
+		if(p&1){
+			ans = (ans*n)%MOD;
+		}
+		n = (n*n)%MOD;
+	}
+	return ans;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>modexpo</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cpp, source.c++, source.c</scope>
+	<!-- Optional: Description to show in the menu -->
+	<description>Modular Exponentiation</description>
+</snippet>

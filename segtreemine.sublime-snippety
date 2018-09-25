@@ -1,0 +1,60 @@
+<snippet>
+	<content><![CDATA[
+
+const int N = 5*(1e5);
+const int inf = 1000000000;
+
+vector <ll> tree(N,0);
+
+
+ll build(vector <ll> ar , ll s , ll e , ll idx){
+	if(s==e){
+		tree[idx] = ar[s];
+		return ar[s];
+	}
+	ll mid = (s+e)>>1;
+	ll lf = mid<<1;
+	ll rf = lf|1;
+	tree[idx] = max(build(ar,s,mid,lf) , build(ar,mid+1,e,rf));
+	return tree[idx];
+}
+
+ll query(ll s , ll e , ll lf , ll rf , ll idx){
+	if(rf < s or e < lf) return -inf;
+	if(lf <= s and e <= rf) return tree[idx];
+	ll mid = (s+e)>>1;
+	ll l = mid<<1;
+	ll r =  lf|1;
+	if(lf <= mid){
+		if(rf <= mid){
+			return query(s,mid,lf,rf,l);
+		}else{
+			return max(query(s,mid,lf,rf,l),query(mid+1,e,lf,rf,r));
+		}
+	}else{
+		return query(mid+1,e,lf,rf,r);
+	}
+}
+
+void update(ll s , ll e , ll i , ll val , ll idx){
+	if(s > i or e < i) return;
+	if(s==e){
+		tree[idx] = val;
+		return;
+	}
+	ll mid = (s+e)>>1;
+	ll lf = mid<<1;
+	ll rf = lf|1;
+	update(s,mid,i,val,lf);
+	update(mid+1,e,i,val,rf);
+	tree[idx] = max(tree[lf] , tree[rf]);
+	return;
+}
+
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<!-- <tabTrigger>hello</tabTrigger> -->
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

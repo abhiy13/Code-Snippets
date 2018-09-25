@@ -1,0 +1,45 @@
+<snippet>
+	<content><![CDATA[
+
+const int N = 
+
+template <typename T>
+class DSU{
+	T parent[N];
+	T RANK[N];
+public:
+
+	DSU(){
+		for(T i = 0 ; i < N + 1 ; i++){
+			parent[i] = i + 1;
+			RANK[i] = 1;
+		}
+	}
+
+	T find(T nd){
+		if(parent[nd] == nd) return nd;
+		return parent[nd] = find(parent[nd]);
+	}
+
+	void unionr(T u , T v){
+		T x = find(u);
+		T y = find(v);
+		if(RANK[x]==RANK[y]){
+			parent[y] = x;
+			RANK[x]++;
+		}else if(RANK[x] < RANK[y]){
+			parent[x] = y;
+		}else{
+			parent[y] = x;
+		}
+	}
+
+};
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>union</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cpp , source.c++ , source.c</scope>
+	<description>My Template for Union By rank and path compression</description>
+</snippet>

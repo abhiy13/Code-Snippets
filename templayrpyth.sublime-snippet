@@ -1,0 +1,15 @@
+<snippet>
+	<content><![CDATA[
+#abhiy13
+def ii():
+    return int(input())
+def mi():
+    return map(int, input().split())
+def li():
+    return list(mi())
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>template</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.python , source.py</scope>
+</snippet>

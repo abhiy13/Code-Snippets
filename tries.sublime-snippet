@@ -1,0 +1,62 @@
+<snippet>
+	<content><![CDATA[
+
+struct trieNode{
+	trieNode *node[26];
+	bool end;
+	trieNode(){
+		for(int i = 0 ; i < 26 ; i++){
+		 node[i] = nullptr;
+		}
+		end = false;
+	}
+};
+
+class Trie{
+public:
+	trieNode *root , *temp;
+	ll ans;
+	Trie(){
+		root = new trieNode;
+		ans = 0;
+	}
+	void add(string s){
+		temp = root;
+		for(auto &c : s){
+			if(temp->node[c - 'a'] == nullptr){
+				temp->node[c - 'a'] = new trieNode;
+			}
+			temp = temp->node[c - 'a'];
+		}
+		temp->end = true;
+	}
+
+	void count(trieNode *rot){
+		if(rot->end) ans++;
+		FOR(i,26){
+			if(rot->node[i] != nullptr){
+				count(rot->node[i]);
+			}	
+		}
+	}
+
+	ll query(string s){
+		temp = root;
+		for(auto &c : s){
+			if(temp->node[c - 'a'] == nullptr) return 0;
+			temp = temp->node[c - 'a'];
+		}
+		ans = 0;
+		count(temp);
+		return ans;
+	}
+};
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>tries</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cpp, source.c++, source.c</scope>
+	<!-- Optional: Description to show in the menu -->
+	<description>Trie implementation</description>
+</snippet>

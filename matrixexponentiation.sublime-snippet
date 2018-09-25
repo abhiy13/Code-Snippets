@@ -1,0 +1,64 @@
+<snippet>
+	<content><![CDATA[
+
+const int MOD = 1000000007;
+
+template<typename T>
+class Matrix{
+  int N , M;
+  vector < vector < T > > ar;
+public: 
+  Matrix(int N_) : N(N_) , M(N_){
+    ar.resize(N , vector <T>(N));
+  }
+  Matrix(int N_ , int M_) : N(N_) , M(M_){
+    ar.resize(N , vector <T>(M));
+  }
+  void input(){
+    for(int i = 0 ; i < N ; i++){
+      for(int j = 0 ; j < M ; j++){
+        cin >> ar[i][j];
+      }
+    }
+  }
+  void multiply(T a[2][2], T b[2][2]){
+    T ans[2][2];
+    for(int i = 0 ; i < 2 ; i++){
+      for(int j = 0 ; j < 2 ; j++){
+          ans[i][j]=0;
+          for(int k = 0 ; k < 2 ; k++){
+           ans[i][j] = (ans[i][j]+(a[i][k]*b[k][j])%MOD)%MOD;
+          }
+      }
+      for(int i = 0 ; i < 2 ; i++){
+        for(int j = 0 ; j < 2 ; j++){
+          a[i][j] = ans[i][j];
+        }
+      }
+  }
+
+  T matrixpower(ll b){
+    T a[2][2];
+    a[0][0] = ;
+    a[0][1] = ;
+    a[1][0] = ;
+    a[1][1] = ;
+    ll c[][2] = {{,},{,}};
+    while(b){
+      if(b&1) multiply(c,a);
+      multiply(a,a);
+      b >>= 1;
+    }
+    ll answer = ;
+    answer %= MOD;
+    return answer;
+  }
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>matrixexpo</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cpp , source.c++ , source.c</scope>
+	<!-- Optional: Description to show in the menu -->
+	<description>Matrix Exponentiation</description>
+</snippet>
