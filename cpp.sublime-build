@@ -8,10 +8,34 @@
       {
           "name": "Run",
           "shell": true,
-          "cmd": ["gnome-terminal -e 'bash -c \"${file_path}/${file_base_name};echo;echo;  echo Press ENTER to continue; read line;exit; exec bash\"'"]
+          "cmd": ["gnome-terminal -- bash -c \"${file_path}/${file_base_name};echo;echo;  echo Press ENTER to continue; read line;exit; exec bash\""]
+      },
+      {
+          "name": "Sanitize",
+          "cmd": ["g++", "-std=c++17" , "-Wall" , "-Wunused" , "-Wuninitialized" , "-Wfloat-equal" , "-Woverflow" , "-Wshadow" , "-Wextra" , "-Wconversion" , "-DABHI" , "$file", "-o", "${file_path}/${file_base_name}" , "-fsanitize=address" , "-fsanitize=undefined" , "-D_GLIBCXX_DEBUG" , "-g"]
       }
   ]    
 }
+
+//  Uncomment this for earlier versions of linux
+// {
+//   "cmd": ["g++", "-std=c++14" , "-Wall" , "-Wunused" , "-Wuninitialized" , "-Wfloat-equal" , "-Woverflow" , "-Wshadow" , "-Wextra" , "-Wconversion" , "-DABHI" , "$file", "-o", "${file_path}/${file_base_name}"],
+//   "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+//   "working_dir": "${file_path}",
+//   "selector": "source.c, source.c++, source.cxx, source.cpp",
+//   "variants":
+//   [
+//       {
+//           "name": "Run",
+//           "shell": true,
+//           "cmd": ["gnome-terminal -e 'bash -c \"${file_path}/${file_base_name};echo;echo;  echo Press ENTER to continue; read line;exit; exec bash\"'"]
+//       },
+//       {
+//           "name": "Sanitize",
+//           "cmd": ["g++", "-std=c++17" , "-Wall" , "-Wunused" , "-Wuninitialized" , "-Wfloat-equal" , "-Woverflow" , "-Wshadow" , "-Wextra" , "-Wconversion" , "-DABHI" , "$file", "-o", "${file_path}/${file_base_name}" , "-fsanitize=address" , "-fsanitize=undefined" , "-D_GLIBCXX_DEBUG" , "-g"]
+//       }
+//   ]    
+// }
 
 // { "cmd": ["g++.exe" , "-std=c++14" , "-Wall" , "-Wunused" , "-Wuninitialized" , "-Wfloat-equal" , "-Woverflow" , "-Wshadow" , "-Wextra" , "-Wconversion" , "-DABHI", "-o", "$file_base_name", "$file"],
 
