@@ -10,6 +10,12 @@
           "shell": true,
           "cmd": ["gnome-terminal -- bash -c \"${file_path}/${file_base_name};echo;echo;  echo Press ENTER to continue; read line;exit; exec bash\""]
       },
+
+      {
+        "name": "c++17 compile",
+        "cmd": ["g++", "-std=c++17" , "-Wall" , "-Wunused" , "-Wuninitialized" , "-Wfloat-equal" , "-Woverflow" , "-Wshadow" , "-Wextra" , "-Wconversion" , "-DABHI" , "$file", "-o", "${file_path}/${file_base_name}"]
+      },
+
       {
           "name": "Sanitize",
           "cmd": ["g++", "-std=c++17" , "-Wall" , "-Wunused" , "-Wuninitialized" , "-Wfloat-equal" , "-Woverflow" , "-Wshadow" , "-Wextra" , "-Wconversion" , "-DABHI" , "$file", "-o", "${file_path}/${file_base_name}" , "-fsanitize=address" , "-fsanitize=undefined" , "-D_GLIBCXX_DEBUG" , "-g"]
