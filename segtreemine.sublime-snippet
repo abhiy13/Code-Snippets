@@ -98,10 +98,20 @@ public:
     build(ar , 0 , n - 1 , 1);
   }
 
+  Segtree(int _n) : n (_n){
+    N = 4 * (n) + 1;
+    tree.resize(N , {});
+    build(0 , n - 1 , 1);
+  }
+
   SegTree(){
     n = 100000;
     N = 4 * n + 1;
     tree.resize(N , {});
+  }
+
+  void build(){
+    build(0 , n - 1 , 1); 
   }
 
   template<typename T>
