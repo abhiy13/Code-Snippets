@@ -1,5 +1,6 @@
 <snippet>
 	<content><![CDATA[
+
 class SegTree{
 public:
   struct Node{
@@ -8,8 +9,10 @@ public:
     int x = 0;
     int add = 0;
     void apply(int val){
+      x = val;
+    }
+    void update(int val){
       x += val;
-      add += val;
     }
   };
 private:
@@ -19,9 +22,12 @@ private:
   // for lazy propogation
   inline void push(int x , int l , int r){
     if(tree[x].add != 0){
-      int cover = (r - l + 1);
-      tree[x << 1].apply(tree[x].add);
-      tree[(x << 1)|1].apply(tree[x].add);
+      tree[x].update(tree[x].add);
+      if(l != r){
+        int cover = (r - l + 1);
+        tree[x << 1].add = (tree[x].add);
+        tree[(x << 1)|1].add = (tree[x].add);
+      }
       tree[x].add = 0;
     }
   }
@@ -57,6 +63,7 @@ private:
   }
 
   Node query(int s , int e , int lf , int rf , int idx) {
+    push(idx , s , e);
     if(rf < s or e < lf) return Node();
     if(lf <= s and e <= rf){
      return tree[idx];
@@ -79,7 +86,7 @@ private:
   void update(int s , int e , int i , M val , int idx) {
     if(s > i or e < i) return;
     if(s == e){
-      tree[idx].apply(-1 * tree[idx].x + val);
+      tree[idx].apply(val);
       return;
     }
     int mid = (s + e) >> 1;
@@ -88,6 +95,24 @@ private:
     tree[idx] = combine(tree[idx << 1] , tree[(idx << 1) | 1]);
     return;
   }
+
+  template <typename M>
+  void update(int s , int e , int l , int r , M val , int idx) {
+    push(idx , s , e);
+    if(s > r or e < l or s > e) return;
+    if(l <= s && e <= r){
+      tree[idx].add += val;
+      push(idx , s , e);
+//      cerr << l << ' ' << r << ' ' << s << ' ' << e << tree[1<<idx].a<< '\n';
+      return;
+    }
+    int mid = (s + e) >> 1;
+    update(s , mid , l , r , val , (idx << 1));
+    update(mid + 1 , e , l , r , val , (idx << 1)|1);
+    tree[idx] = combine(tree[idx << 1] , tree[(idx << 1) | 1]);
+    return;
+  }
+
 public:
   template<typename T>
   SegTree(const vector<T> &ar) {
@@ -122,9 +147,18 @@ public:
     return query(0 , n - 1 , l , r , 1);
   }
 
-  template <typename M>
+  template<typename T>
+  void update(int l , int r , T val){
+    update(0 , n - 1 , l , r , val , 1);
+  }
+
+  template<typename M>
   void update(int i , M val) {
     update(0 , n - 1 , i , val , 1);
+  }
+
+  int get(int idx){
+    return tree[idx].x;
   }
 };
 
