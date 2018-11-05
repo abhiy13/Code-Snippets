@@ -103,7 +103,6 @@ private:
     if(l <= s && e <= r){
       tree[idx].add += val;
       push(idx , s , e);
-//      cerr << l << ' ' << r << ' ' << s << ' ' << e << tree[1<<idx].a<< '\n';
       return;
     }
     int mid = (s + e) >> 1;
