@@ -38,9 +38,8 @@ private:
       return;
     }
     int mid = (s+e) >> 1;
-    build(ar , s , mid , (idx << 1));
-    build(ar , mid + 1 , e , ((idx << 1)|1));
-    tree[idx] = combine(tree[idx << 1] , tree[(idx << 1)|1]);
+    build(s , mid , (idx << 1));
+    build(mid + 1 , e , ((idx << 1)|1));
     return;
   }
 
@@ -98,7 +97,7 @@ public:
     build(ar , 0 , n - 1 , 1);
   }
 
-  Segtree(int _n) : n (_n){
+  SegTree(int _n) : n (_n){
     N = 4 * (n) + 1;
     tree.resize(N , {});
     build(0 , n - 1 , 1);
@@ -128,6 +127,7 @@ public:
     update(0 , n - 1 , i , val , 1);
   }
 };
+
 ]]></content>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
 	<tabTrigger>segmine</tabTrigger>
