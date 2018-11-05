@@ -31,6 +31,18 @@ private:
     ans.x = max(A.x , B.x);
     return ans;
   }
+  
+  void build(int s , int e , int idx) {
+    if(s == e){
+      tree[idx].apply(0);
+      return;
+    }
+    int mid = (s+e) >> 1;
+    build(ar , s , mid , (idx << 1));
+    build(ar , mid + 1 , e , ((idx << 1)|1));
+    tree[idx] = combine(tree[idx << 1] , tree[(idx << 1)|1]);
+    return;
+  }
 
   template <typename T>
   void build(const vector < T > &ar , int s , int e , int idx) {
