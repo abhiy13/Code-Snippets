@@ -13,12 +13,12 @@
 
       {
         "name": "c++17 compile",
-        "cmd": ["g++", "-std=c++17" , "-Wall" , "-Wunused" , "-Wuninitialized" , "-Wfloat-equal" , "-Woverflow" , "-Wshadow" , "-Wextra" , "-Wconversion" , "-DABHI" , "$file", "-o", "${file_path}/${file_base_name}"]
+        "cmd": ["g++", "-std=c++17" , "-O2" , "-Wall" , "-Wunused" , "-Wuninitialized" , "-Wfloat-equal" , "-Woverflow" , "-Wshadow" , "-Wextra" , "-Wconversion" , "-DABHI" , "$file", "-o", "${file_path}/${file_base_name}"]
       },
 
       {
           "name": "Sanitize",
-          "cmd": ["g++", "-std=c++17" , "-Wall" , "-Wunused" , "-Wuninitialized" , "-Wfloat-equal" , "-Woverflow" , "-Wshadow" , "-Wextra" , "-Wconversion" , "-DABHI" , "$file", "-o", "${file_path}/${file_base_name}" , "-fsanitize=address" , "-fsanitize=undefined" , "-D_GLIBCXX_DEBUG" , "-g"]
+          "cmd": ["g++", "-std=c++17" , "-Wall" , "-Wshadow" , "-DABHI" , "$file", "-o", "${file_path}/${file_base_name}" , "-fsanitize=address" , "-fsanitize=undefined" , "-D_GLIBCXX_DEBUG" , "-g"]
       }
   ]    
 }
