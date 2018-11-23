@@ -9,7 +9,7 @@ import java.util.Collections;
 
 // author : abhiy13
 
-public class Test {
+public class ${primary_type_name} {
   public static void main(String[] args) throws Exception {
     InputStream inputStream = System.in;
     OutputStream outputStream = System.out;
@@ -23,7 +23,7 @@ public class Test {
   }
 
   public static void solve(int test, InputReader in, PrintWriter out) {
-    
+		${cursor}
   }
 
   public static class InputReader<SpaceCharFilter> {
@@ -251,48 +251,6 @@ public class Test {
 
     public interface SpaceCharFilter {
       public boolean isSpaceChar(int ch);
-    }
-
-    public int[] nextIntArray(int n) {
-      int[] array = new int[n];
-      for (int i = 0; i < n; ++i)
-        array[i] = nextInt();
-      return array;
-    }
-
-    public int[] nextSortedIntArray(int n) {
-      int array[] = nextIntArray(n);
-      Arrays.sort(array);
-      return array;
-    }
-
-    public int[] nextSumIntArray(int n) {
-      int[] array = new int[n];
-      array[0] = nextInt();
-      for (int i = 1; i < n; ++i)
-        array[i] = array[i - 1] + nextInt();
-      return array;
-    }
-
-    public long[] nextLongArray(int n) {
-      long[] array = new long[n];
-      for (int i = 0; i < n; ++i)
-        array[i] = nextLong();
-      return array;
-    }
-
-    public long[] nextSumLongArray(int n) {
-      long[] array = new long[n];
-      array[0] = nextInt();
-      for (int i = 1; i < n; ++i)
-        array[i] = array[i - 1] + nextInt();
-      return array;
-    }
-
-    public long[] nextSortedLongArray(int n) {
-      long array[] = nextLongArray(n);
-      Arrays.sort(array);
-      return array;
     }
   }
 }
