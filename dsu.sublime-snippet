@@ -1,0 +1,44 @@
+<snippet>
+	<content><![CDATA[
+template <typename T>
+class dsu {
+public:
+  vector<T> p;
+  vector<T> rank;
+  int n;
+
+  dsu(int _n) : n(_n) {
+    p.resize(n);
+    rank.resize(n);
+    iota(p.begin(), p.end(), 0);
+    fill(rank.begin(), rank.end() , 1);
+  }
+
+  inline T get(T x) {
+    return (x == p[x] ? x : (p[x] = get(p[x])));
+  }
+
+  inline bool unite(T x, T y) {
+    T px = get(x);
+    T py = get(y);
+    if (px != py) {
+      if(rank[px] == rank[py]){
+        p[py] = px;
+        rank[px]++; 
+      } else if(rank[px] < rank[py]){
+        p[px] = py;
+      } else {
+        p[py] = px;
+      }
+      return true;
+    }
+    return false;
+  }
+};
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>disjoint sets</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cpp , source.cxx , source.cc , source.c , source.c++ </scope> 
+</snippet>

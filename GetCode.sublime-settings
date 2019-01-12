@@ -1,0 +1,15 @@
+{
+    //All settings are mandatory
+    //Codeforces directory
+    "parent_dir": "/home/abhiy13/Documents/COMP/CP",
+    //Extension for new files
+    "extension": "cpp",
+    //Snippet to begin your new file
+    "snippets": "template long",
+    //Codechef directory
+    "codechef_dir": "/home/abhiy13/Documents/COMP/CP/CC",
+    //SPOJ directory
+    "spoj_dir": "/home/abhiy13/Documents/COMP/CP/SPOJ",
+    //virtual judge directory
+    "vjudge_dir": "/home/abhiy13/Documents/COMP/CP/VJ"
+}

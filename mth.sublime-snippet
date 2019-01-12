@@ -1,0 +1,54 @@
+<snippet>
+	<content><![CDATA[
+template<typename T>
+T sum(T x) {
+  return x % mod;
+}
+template<typename T , typename... Tail>
+T sum(T x , Tail... extra) {
+  return (x % mod + sum(extra...) % mod) % mod;
+}
+
+template<typename T>
+T sub(T x) {
+  return x % mod;
+}
+template<typename T , typename... Tail>
+T sub(T x , Tail... extra) {
+  return (x - sub(extra...) + mod ) % mod;
+}
+
+template<typename T>
+T mul(T x) {
+  return x % mod;
+}
+template<typename T , typename... Tail>
+T mul(T x , Tail... extra) {
+  return (long long)(x % mod + mul(extra...) % mod) % mod;
+}
+
+
+template<typename T , typename U>
+T power(T x , U p) {
+  T ans = 1 % mod;
+  while(p) {
+    if(p&1) {
+      ans = (T)(ans * x) % mod
+    }
+    p >>= 1;
+    x = (T) (x * x) % mod;
+  }
+  return ans;
+}
+
+template<typename T>
+T inv(T x) {
+  return power(x , mod - 2);
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>maths</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

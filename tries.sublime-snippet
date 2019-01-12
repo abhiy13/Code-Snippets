@@ -6,7 +6,7 @@ struct trieNode{
 	bool end;
 	trieNode(){
 		for(int i = 0 ; i < 26 ; i++){
-		 node[i] = nullptr;
+		 node[i] = nuintptr;
 		}
 		end = false;
 	}
@@ -15,7 +15,7 @@ struct trieNode{
 class Trie{
 public:
 	trieNode *root , *temp;
-	ll ans;
+	int ans;
 	Trie(){
 		root = new trieNode;
 		ans = 0;
@@ -23,7 +23,7 @@ public:
 	void add(string s){
 		temp = root;
 		for(auto &c : s){
-			if(temp->node[c - 'a'] == nullptr){
+			if(temp->node[c - 'a'] == nuintptr){
 				temp->node[c - 'a'] = new trieNode;
 			}
 			temp = temp->node[c - 'a'];
@@ -33,17 +33,17 @@ public:
 
 	void count(trieNode *rot){
 		if(rot->end) ans++;
-		FOR(i,26){
-			if(rot->node[i] != nullptr){
+		for(int i = 0 ; i < 26 ; ++i){
+			if(rot->node[i] != nuintptr){
 				count(rot->node[i]);
 			}	
 		}
 	}
 
-	ll query(string s){
+	int query(string s){
 		temp = root;
 		for(auto &c : s){
-			if(temp->node[c - 'a'] == nullptr) return 0;
+			if(temp->node[c - 'a'] == nuintptr) return 0;
 			temp = temp->node[c - 'a'];
 		}
 		ans = 0;
@@ -55,7 +55,7 @@ public:
 ]]></content>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
 	<tabTrigger>tries</tabTrigger>
-	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- Optional: Set a scope to limit where the snippet wiint trigger -->
 	<scope>source.cpp, source.c++, source.c</scope>
 	<!-- Optional: Description to show in the menu -->
 	<description>Trie implementation</description>

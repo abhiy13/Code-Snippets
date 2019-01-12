@@ -1,0 +1,19 @@
+<snippet>
+	<content><![CDATA[
+int mmul(int a,int b) { 
+  int res = 0;  
+  a %= MOD; 
+  while (b) { 
+    if (b & 1) 
+      res = (res + a) % MOD; 
+    a = (2 * a) % MOD; 
+    b >>= 1;  // b = b / 2 
+  } 
+    return res; 
+} 
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>mulmod</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cpp , source.cc , source.cxx , source.c++</scope>
+</snippet>

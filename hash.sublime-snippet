@@ -1,0 +1,22 @@
+<snippet>
+	<content><![CDATA[
+// hash from : https://codeforces.com/blog/entry/21853
+typedef tuple<int, int, int> triplet;
+struct key_hash : public unary_function<triplet, size_t> {
+  size_t operator()(const triplet& k) const {
+    unsigned int hash = get<0>(k);
+    hash *= 101;
+    hash += get<1>(k);
+    hash *= 101;
+    hash += get<2>(k);
+    hash += 101;
+    return hash;
+  }
+};
+ 
+typedef unordered_map<const triplet, int, key_hash> umap;
+
+]]></content>
+	<tabTrigger>hash func</tabTrigger>
+	<scope>source.cpp , source.cxx , source.cc</scope>
+</snippet>

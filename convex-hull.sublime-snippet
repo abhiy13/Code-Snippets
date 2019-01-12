@@ -1,0 +1,54 @@
+<snippet>
+	<content><![CDATA[
+namespace geo{
+  struct point{
+    int x , y;
+  };
+  bool operator < (point a, point b) {
+    return a.x < b.x || (a.x == b.x && a.y < b.y);
+  }
+  bool cw(point a, point b, point c) { //clockwise
+    return a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y-b.y) < 0;
+  }
+
+  bool ccw(point a, point b, point c) { //counter-clockwise
+    return a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y) > 0;
+  }
+}
+
+using namespace geo;
+
+vector <point> convex_hull(vector<point> a) {
+  if (a.size() == 1)
+    return a;
+  sort(a.begin(), a.end());
+  point p1 = a[0], p2 = a.back();
+  vector<point> up, down;
+  up.push_back(p1);
+  down.push_back(p1);
+  for (int i = 1; i < (int)a.size(); i++) {
+    if (i == (int) a.size() - 1 || cw(p1, a[i], p2)) {
+      while (up.size() >= 2 && !cw(up[up.size()-2], up[up.size()-1], a[i]))
+        up.pop_back();
+      up.push_back(a[i]);
+    }
+    if (i == (int) a.size() - 1 || ccw(p1, a[i], p2)) {
+      while(down.size() >= 2 && !ccw(down[down.size()-2], down[down.size()-1], a[i]))
+        down.pop_back();
+      down.push_back(a[i]);
+   }
+  }
+  vector <point> ans;
+  for (int i = 0; i < (int)up.size(); i++)
+    ans.push_back(up[i]);
+  for (int i = (int) down.size() - 2; i > 0; i--)
+    ans.push_back(down[i]);
+  return ans;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>convex hull</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cpp , source.c++ , source.cc , source.cxx , source.c</scope>
+</snippet>

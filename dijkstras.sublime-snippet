@@ -1,37 +1,31 @@
 <snippet>
 	<content><![CDATA[
-#define inf 100000000000000000
-#define N 100005
- 
-vector <pair<ll,ll>> v[N];
-vector<ll> dist(N,0);
- 
-inline ll in(){
-	ll k; cin>>k;
-	return k;
-}
- 
-void dijkstra(ll S){
-	ll u , vv , c , w;
-	priority_queue< pair < ll , ll > , vector< pair < ll , ll > > , greater < pair <ll , ll > > > Q;
-	Q.push({0,S});
-	dist[S] = 0;
-	while(!Q.empty()){
-		u = Q.top().second;
-		c = Q.top().first;
-		Q.pop();
-		if(dist[u] < c){
-			continue;
-		}
-		for(int i = 0 ; i < (int) v[u].size() ; i++){
-			w = v[u][i].first;
-			vv = v[u][i].second;
-			if(dist[vv] > dist[u] + w){
-				dist[vv] = dist[u] + w;
-				Q.push({dist[vv],vv});
-			}
-		}
-	}
+template <typename T> 
+using minpq = priority_queue<T, vector<T>, greater<T>>;
+const long long inf = (long long) (1e18);
+
+void dijkstra(int S){
+  long long u , vv , c , w;
+  minpq<pair<long long, long long>> Q;
+  fill(dist.begin(), dist.end(), inf);
+  Q.push({0,S});
+  dist[S] = 0;
+  while(!Q.empty()){
+    u = Q.top().second;
+    c = Q.top().first;
+    Q.pop();
+    if(dist[u] < c){
+      continue;
+    }
+    for(int i = 0 ; i < (int) G[u].size() ; i++){
+      w = G[u][i].first;
+      vv = G[u][i].second;
+      if(dist[vv] > dist[u] + w){
+        dist[vv] = dist[u] + w;
+        Q.push({dist[vv],vv});
+      }
+    }
+  }
 }
  
 ]]></content>

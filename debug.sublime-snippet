@@ -1,7 +1,6 @@
 <snippet>
 	<content><![CDATA[
 
-// debugger coder from : https://www.codechef.com/viewsolution/19305603  
 string to_string(string s) {
   return '"' + s + '"';
 }
@@ -43,9 +42,11 @@ void debug_out(Head H, Tail... T) {
 }
  
 #ifdef ABHI
-#define debug(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
+  #define line_debug(x) cerr << "[" << __LINE__ << "]: " << #x << "->" << to_string(x) << '\n';
+  #define debug(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
 #else
-#define debug(...) 42
+  #define line_debug(x) 42
+  #define debug(...) 42
 #endif
 
 ]]></content>

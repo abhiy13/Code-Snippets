@@ -1,0 +1,29 @@
+<snippet>
+	<content><![CDATA[
+void sieve(){ 
+  iota(spf.begin(), spf.end() , 1);
+  for (int i = 4 ; i < MAXN ;  i += 2) 
+    spf[i] = 2; 
+  for (int i = 3 ; i * i < MAXN ; i++) { 
+    if (spf[i] == i) { 
+      for (int j = i * i; j < MAXN ;  j += i) 
+        if (spf[j] == j) 
+          spf[j] = i; 
+    } 
+  } 
+} 
+
+vector<int> getF(int x){ 
+  vector<int> factors; 
+  while (x != 1) { 
+    x = x / spf[x]; 
+    factors.push_back(spf[x]); 
+  } 
+  return factors; 
+} 
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>prime factorisation</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cpp , source.c++ , source.cxx , source.cc</scope>
+</snippet>

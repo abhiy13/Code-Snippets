@@ -5,20 +5,20 @@ template <typename T>
 class fenwick {
   public:
   vector<T> fenw;
-  ll n;
+  int n;
  
-  fenwick(ll _n) : n(_n) {
+  fenwick(int _n) : n(_n) {
     fenw.resize(n);
   }
  
-  void modify(ll x, T v) {
+  void modify(int x, T v) {
     while (x < n) {
       fenw[x] += v;
       x |= (x + 1);
     }
   }
  
-  T get(ll x) {
+  T get(int x) {
     T v{};
     while (x >= 0) {
       v += fenw[x];
@@ -31,7 +31,7 @@ class fenwick {
 ]]></content>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
 	<tabTrigger>fenwick</tabTrigger>
-	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- Optional: Set a scope to limit where the snippet wiint trigger -->
 	<scope>source.cpp, source.c++, source.c</scope>
 	<!-- Optional: Description to show in the menu -->
 	<description>Fenwick/Binary Index tree</description>

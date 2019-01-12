@@ -1,85 +1,74 @@
 <snippet>
 	<content><![CDATA[
-
-//Using likecs and partial rajat1603 Lazy Propagation SegTree Template 		
-
 const int MAX = 1e5 + 5;
 const int LIM = 3e5 + 5;        //equals 2 * 2^ceil(log2(n))
-int a[MAX];
-int segT[LIM];
+int ar[MAX];
+int tree[LIM];
 int lazy[LIM];
 
 int combine(int &a, int &b) {
 	return max(a, b);
 }
 
-void propagate(int l, int r, int node) {
+void push(int l, int r, int node) {
 	if (lazy[node]) {
-		segT[node] = segT[node] + lazy[node];
+		tree[node] += lazy[node];
 		if (l != r){
-			int lc = index<<1;
-			int rc = lc|1;
-			lazy[lc] = lazy[lc] + lazy[index];
-			lazy[rc] = lazy[rc] + lazy[index];
+			lazy[idx << 1] += lazy[index];
+			lazy[(idx << 1)|1] += lazy[index];
 		}
 		lazy[index] = 0;
 	}
 }
 
-void build(int index, int l, int r) {
+void build(int l, int r, int idx) {
 	lazy[index] = 0;
 	if (l == r) {
-		segT[index] = a[l];
+		tree[index] = a[l];
 		return ;
 	}
-	int lc = index<<1;
-	int rc = lc|1;
-	int mid = (l+r)>>1;
-	build(lc, l, mid);
-	build(rc,mid+1,r);
-	segT[t] = combine(segT[lc], segT[rc]);
+	int mid = (l+r) >> 1;
+	build(l , mid , idx << 1);
+	build(mid + 1 , r , (idx << 1)|1);
+	tree[idx] = combine(tree[idx << 1], tree[(idx << 1)|1]);
 }
 
 
-void update(int l, int r, int index, int ql, int qr, int x) {
-	propagate(index,l,r);
-	if (l > qr || r < ql) {
+void update(int l, int r, int ql, int qr, int val , int idx) {
+	push(idx, l, r);
+	if (l > qr || r < ql || r < l) {
 		return;
 	}
 	if (ql <= l && qr <= r) {
-		lazy[index] += x;
-		propagate(t, i, j);
+		lazy[idx] += val;
+		push(idx, l, r);
 		return;
 	}
-	int lc = index<<1;
-	int rc = lc|1;
-	int mid = (l+r)>>1;
-	update(l, mid,,lc ,ql, qr, x);
-	update(mid + 1, r, rc ,ql, qr, x);
-	segT[index] = combine(segT[lc], segT[rc]);
+	int mid = (l+r) >> 1;
+	update(l, mid, ql, qr, val , idx << 1);
+	update(mid + 1, r, ql, qr, val , (idx << 1)|1);
+	tree[idx] = combine(tree[idx << 1], tree[(idx << 1)|1]);
 }
 
-int query(int l, int r, int index, int ql, int qr) {
-	propagate(index,l,r);
-	if (i > r || j < l){
+int query(int l, int r, int ql, int qr , int idx) {
+	push(idx, l, r);
+	if (l > qr || r < ql || r < l){
 		return 0;
 	}
 	if (ql <= l && r <= qr){
-		return segT[index];
+		return tree[idx];
 	}
-	int mid = (l+r)>>1;
-	int lc = index << 1;
-	int rc = lc|1;
+	int mid = (l+r) >> 1;
 	if (ql <= mid) {
 		if (qr <= mid) {
-			return query(l,mid,lc,ql,qr);
+			return query(l, mid, ql, qr, idx << 1);
 		}else{
-			int a = query(l,mid,lc,ql,qr);
-			int b = query(mid + 1,r,rc,ql, qr);
+			int a = query(l, mid, ql, qr, idx << 1);
+			int b = query(mid + 1,r ,rc ,ql , (idx << 1)|1);
 			return combine(a, b);
 		}
 	}else {
-		return query(mid + 1, r, rc, ql, qr);
+		return query(mid + 1, r, ql, qr , (idx << 1)|1);
 	}
 }
 ]]></content>

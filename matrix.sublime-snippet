@@ -1,0 +1,59 @@
+<snippet>
+	<content><![CDATA[
+const int sz = 3;
+struct vec{
+	int arr[SZ];
+	void reset(){
+		memset(arr , 0 , sizeof(arr));
+	}
+};
+struct matrix{
+	int arr[SZ][SZ];
+	void reset(){
+		memset(arr , 0 , sizeof(arr));
+	}
+	void makeiden(){
+		reset();
+		for(int i = 0 ; i < SZ ; ++i){
+			arr[i][i] = 1;
+		}
+	}
+	matrix operator + (const matrix &o) const {
+		matrix res;
+		for(int i = 0 ; i < SZ ; ++i){
+			for(int j = 0 ; j < SZ ; ++j){
+				res.arr[i][j] = arr[i][j] + o.arr[i][j];
+				res.arr[i][j] -= (res.arr[i][j] >= mod) * mod;
+			}
+		}
+		return res;
+	}
+	matrix operator * (const matrix &o) const {
+		matrix res;
+		for(int i = 0 ; i < SZ ; ++i){
+			for(int j = 0 ; j < SZ ; ++j){
+				res.arr[i][j] = 0;
+				for(int k = 0 ; k < SZ ; ++k){
+					res.arr[i][j] = (res.arr[i][j] + 1LL * arr[i][k] * o.arr[k][j]) % mod;
+				}
+			}
+		}
+		return res;
+	}
+	vec operator * (const vec &o) const {
+		vec res;
+		for(int i = 0 ; i < SZ ; ++i){
+			res.arr[i] = 0;
+			for(int k = 0 ; k < SZ ; ++k){
+				res.arr[i] = (res.arr[i] + 1LL * arr[i][k] * o.arr[k]) % mod;
+			}
+		}
+		return res;
+	}
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>matrix</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cpp , source.cxx , source.c , source.c++ , source.h , source.hpp</scope>
+</snippet>

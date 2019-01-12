@@ -5,8 +5,15 @@
 	],
 	"installed_packages":
 	[
+		"GetCode",
 		"Package Control",
 		"Python 3",
+		"SMART-Snippets",
 		"Terminal"
+	],
+	"repositories":
+	[
+		"https://github.com/Salil03/GetCode",
+		"https://github.com/BoundInCode/SMART-Snippets.git"
 	]
 }

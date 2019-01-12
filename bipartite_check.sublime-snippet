@@ -1,0 +1,31 @@
+<snippet>
+	<content><![CDATA[
+function <bool()> is_bipartite = [&](){
+	queue<int> q;	
+	bool ok = true;
+	for (int st = 0; st < n; ++st) {
+  	if (side[st] == -1) {
+    	q.push(st);
+    	side[st] = 0;
+    	while (!q.empty()) {
+      	int v = q.front();
+      	q.pop();
+      	for (auto u : V[v]) {
+        	if (side[u] == -1) {
+          	side[u] = side[v] ^ 1
+          	q.push(u);
+        	} else {
+            ok &= (side[u] != side[v]);
+        	}
+      	}
+    	}
+  	}	
+	}
+	return ok;
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>bipartitecheck</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cpp , source.c , source.c++ , source.cc , source.cxx</scope>
+</snippet>

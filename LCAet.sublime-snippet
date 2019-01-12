@@ -1,0 +1,78 @@
+<snippet>
+	<content><![CDATA[
+const int MAXN = 1e5 + 10;
+
+vector<vector<int>> G(MAXN);
+class LCA {
+  vector<int> euler;
+  vector<int> segtree;
+  vector<int> first;
+  vector<int> height;
+  int N , es;
+public:
+  LCA(int _N) : N(_N) {
+    euler.reserve(2*N);
+    first.resize(N);
+    height.resize(N);
+    dfs(0 , -1);
+    es = (int) euler.size();
+    segtree.resize(4*es + 1);
+    init(0 , es - 1);
+  }
+
+  void dfs(int u , int par = -1 , int h = 0) {
+    height[u] = h;
+    first[u] = (int) euler.size();
+    euler.push_back(u);
+    for(int x : G[u]) {
+      if(x != par) {
+        dfs(x , u , h + 1);
+        euler.push_back(u);
+      }
+    }
+  }
+
+  void init(int s , int  e , int idx = 1) {
+    if(s == e) {
+      segtree[idx] = euler[s];
+      return;
+    }
+    int mid = (s + e) >> 1;
+    init(s , mid , (idx << 1));
+    init(mid + 1 , e , ((idx << 1)|1));
+    if(height[segtree[idx << 1]] > height[segtree[(idx << 1)|1]]) {
+      segtree[idx] = segtree[(idx << 1)|1];
+    } else {
+      segtree[idx] = segtree[idx << 1];
+    }
+    return;
+  }
+
+  int query(int s , int e , int l , int r , int idx = 1) {
+    if(e < l || r < s) {
+      return -1;
+    }
+    if(l <= s && e <= r) {
+      return segtree[idx];
+    }
+    int mid = (s + e) >> 1;
+    int lr = query(s , mid , l , r , idx << 1);
+    int rr = query(mid + 1 , e , l , r , ((idx << 1)|1));
+    if(lr == -1) return rr;
+    if(rr == -1) return lr;
+    return height[lr] > height[rr] ? rr : lr; 
+  }
+
+  int lca(int l , int r) {
+    int x = first[l] , y = first[r];
+    if(x > y) swap(x , y);
+    return query(0 , es - 1 , x , y);
+  }
+};
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>LCA</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

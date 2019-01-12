@@ -1,0 +1,12 @@
+<snippet>
+	<content><![CDATA[
+mt19937 prng(chrono::steady_clock::now().time_since_epoch().count());
+int rand(int l, int r) {
+  return uniform_int_distribution<int>(l, r)(prng);
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>prng</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cxx , source.c++ , source.c , source.cpp , source.cc</scope>
+</snippet>

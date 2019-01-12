@@ -1,0 +1,25 @@
+<snippet>
+	<content><![CDATA[
+
+template <typename T>
+void fastscan(T &x){
+	bool neg = false;
+	register int c;
+	x = 0;
+	c = getchar();
+	if(c == '-'){
+	  neg = true;
+	  c=getchar();
+	}
+	for(;(c>47 && c<58);c=getchar())
+	  x = (x<<1) + (x<<3) +c -48;
+	if(neg)
+	  x *=-1;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>fastscan</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.cpp , source.c++ , source.c , source.cc</scope>
+</snippet>
