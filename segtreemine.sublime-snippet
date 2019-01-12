@@ -155,7 +155,6 @@ public:
   void update(int i , M val) {
     update(0 , n - 1 , i , val , 1);
   }
-};
 
 ]]></content>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->

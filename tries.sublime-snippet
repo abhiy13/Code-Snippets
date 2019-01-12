@@ -6,7 +6,7 @@ struct trieNode{
 	bool end;
 	trieNode(){
 		for(int i = 0 ; i < 26 ; i++){
-		 node[i] = nuintptr;
+		 node[i] = nullptr;
 		}
 		end = false;
 	}
@@ -23,7 +23,7 @@ public:
 	void add(string s){
 		temp = root;
 		for(auto &c : s){
-			if(temp->node[c - 'a'] == nuintptr){
+			if(temp->node[c - 'a'] == nullptr){
 				temp->node[c - 'a'] = new trieNode;
 			}
 			temp = temp->node[c - 'a'];
@@ -34,7 +34,7 @@ public:
 	void count(trieNode *rot){
 		if(rot->end) ans++;
 		for(int i = 0 ; i < 26 ; ++i){
-			if(rot->node[i] != nuintptr){
+			if(rot->node[i] != nullptr){
 				count(rot->node[i]);
 			}	
 		}
@@ -43,7 +43,7 @@ public:
 	int query(string s){
 		temp = root;
 		for(auto &c : s){
-			if(temp->node[c - 'a'] == nuintptr) return 0;
+			if(temp->node[c - 'a'] == nullptr) return 0;
 			temp = temp->node[c - 'a'];
 		}
 		ans = 0;
